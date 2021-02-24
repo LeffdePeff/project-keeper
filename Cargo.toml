@@ -1,0 +1,19 @@
+[package]
+name = "project_keeper"
+version = "0.1.0"
+authors = ["LeffdePeff <77458040+LeffdePeff@users.noreply.github.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+glib = "0.10.3"
+json = "0.12.4"
+
+[dependencies.gtk]
+version = "0.9.0"
+features = ["v3_16"]
+
+[dependencies.gio]
+version = ""
+features = ["v2_44"]
