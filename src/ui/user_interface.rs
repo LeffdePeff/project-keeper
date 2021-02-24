@@ -1,13 +1,13 @@
 extern crate gio;
 extern crate gtk;
 
-use gio::prelude::*;
 use gtk::prelude::*;
 
 use std::borrow::Borrow;
 use std::rc::Rc;
 
 #[path = "columns.rs"] mod columns;
+#[path = "model.rs"] mod model;
 
 pub fn build_ui(application: &gtk::Application) 
 {
@@ -46,7 +46,7 @@ pub fn build_ui(application: &gtk::Application)
 
     let sw: gtk::ScrolledWindow = builder.get_object("sw").unwrap();
 
-    let model = Rc::new(create_model());
+    let model = Rc::new(model::create_model());
     let treeview = gtk::TreeView::with_model(&*model);
     treeview.set_vexpand(true);
     treeview.set_search_column(columns::Columns::Description as i32);
@@ -57,48 +57,3 @@ pub fn build_ui(application: &gtk::Application)
 
     window.show_all();
 }
-
-struct Project 
-{
-    name: String,
-    description: String,
-    language: String,
-    date: String,
-}
-
-fn create_model() -> gtk::ListStore 
-{
-    let col_types: [glib::Type; 6] = [
-        glib::Type::String,
-        glib::Type::String,
-        glib::Type::String,
-        glib::Type::String,
-        glib::Type::U32,
-        glib::Type::Bool,
-    ];
-
-    let projects: Vec<Project> = vec![
-        Project {name: "Climeat".to_string(), description: "Food Stuff".to_string(), language: "Dart".to_string(), date: "now".to_string()},
-        Project {name: "Big Power CLI".to_string(), description: "GMP based big power calculator".to_string(), language: "Rust".to_string(), date: "now".to_string()},
-        Project {name: "Big Power GUI".to_string(), description: "gui version of Big Power CLI".to_string(), language: "Rust".to_string(), date: "now".to_string()},
-        Project {name: "Cube Flight".to_string(), description: "Game".to_string(), language: "Godot".to_string(), date: "now".to_string()},
-    ];
-
-    let store = gtk::ListStore::new(&col_types);
-
-    let col_indices: [u32; 6] = [0, 1, 2, 3, 4, 5];
-
-    for (_d_idx, d) in projects.iter().enumerate() {
-        let values: [&dyn ToValue; 6] = [
-            &d.name,
-            &d.description,
-            &d.language,
-            &d.date,
-            &0u32,
-            &false,
-        ];
-        store.set(&store.append(), &col_indices, &values);
-    }
-    store
-}
-

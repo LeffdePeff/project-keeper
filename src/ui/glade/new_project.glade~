@@ -14,8 +14,8 @@
       <object class="GtkLabel">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="ypad">8</property>
-        <property name="label" translatable="yes">Project Name:</property>
+        <property name="margin-top">8</property>
+        <property name="label" translatable="yes">Project Directory:</property>
       </object>
       <packing>
         <property name="expand">False</property>
@@ -24,11 +24,13 @@
       </packing>
     </child>
     <child>
-      <object class="GtkEntry">
+      <object class="GtkFileChooserButton">
         <property name="visible">True</property>
-        <property name="can-focus">True</property>
+        <property name="can-focus">False</property>
         <property name="margin-start">25</property>
         <property name="margin-end">25</property>
+        <property name="action">select-folder</property>
+        <property name="title" translatable="yes"/>
       </object>
       <packing>
         <property name="expand">False</property>
@@ -40,8 +42,7 @@
       <object class="GtkLabel">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="xpad">8</property>
-        <property name="label" translatable="yes">Project Description:</property>
+        <property name="label" translatable="yes">Project Name:</property>
       </object>
       <packing>
         <property name="expand">False</property>
@@ -60,6 +61,31 @@
         <property name="expand">False</property>
         <property name="fill">True</property>
         <property name="position">4</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkLabel">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="label" translatable="yes">Project Description:</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="position">5</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkEntry">
+        <property name="visible">True</property>
+        <property name="can-focus">True</property>
+        <property name="margin-start">25</property>
+        <property name="margin-end">25</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="position">6</property>
       </packing>
     </child>
     <child>
@@ -117,7 +143,7 @@
       <packing>
         <property name="expand">False</property>
         <property name="fill">True</property>
-        <property name="position">5</property>
+        <property name="position">7</property>
       </packing>
     </child>
     <child>
@@ -129,7 +155,7 @@
       <packing>
         <property name="expand">False</property>
         <property name="fill">True</property>
-        <property name="position">6</property>
+        <property name="position">8</property>
       </packing>
     </child>
     <child>
@@ -138,11 +164,12 @@
         <property name="can-focus">True</property>
         <property name="margin-start">25</property>
         <property name="margin-end">25</property>
+        <property name="editable">False</property>
       </object>
       <packing>
         <property name="expand">False</property>
         <property name="fill">True</property>
-        <property name="position">7</property>
+        <property name="position">9</property>
       </packing>
     </child>
     <child>
@@ -211,7 +238,7 @@
       <packing>
         <property name="expand">False</property>
         <property name="fill">True</property>
-        <property name="position">8</property>
+        <property name="position">10</property>
       </packing>
     </child>
   </object>
