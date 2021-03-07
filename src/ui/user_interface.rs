@@ -15,6 +15,7 @@ pub fn build_ui(application: &gtk::Application)
     let builder = gtk::Builder::from_string(glade_src);
     let window:gtk::ApplicationWindow = gtk::ApplicationWindow::new(application);
     let notebook: gtk::Notebook = builder.get_object("notebook").unwrap();
+    let open_project: gtk::Button = builder.get_object("open_project_button").unwrap();
 
     let glade_src_new = include_str!("glade/new_project.glade");
     let builder_new = gtk::Builder::from_string(glade_src_new);
@@ -24,24 +25,30 @@ pub fn build_ui(application: &gtk::Application)
     window.set_border_width(10);
     window.set_default_size(640, 450);
 
-    let new_project_button: gtk::Button = builder.get_object("new_project_button").unwrap();
+    let new_project: gtk::Button = builder.get_object("new_project_button").unwrap();
 
     window.add(notebook.borrow());
 
     let notebook_new = notebook.clone();
+    let window_new = window.clone();
 
-    new_project_button.connect_clicked(move |_| {
+    new_project.connect_clicked(move |_| {
         let new_project_box: gtk::Box = builder_new.get_object("new_project_box").unwrap();
         
         notebook_new.append_page(new_project_box.borrow(), Some(gtk::Label::new(None).borrow()));
         notebook_new.set_current_page(Some(1));
+
+        window_new.set_title("New Project");
     });
 
     let notebook_cancel = notebook.clone();
+    let window_cancel = window.clone();
 
     new_project_cancel.connect_clicked(move |_| {
         notebook_cancel.remove_page(Some(1));
         notebook_cancel.set_current_page(Some(0));
+
+        window_cancel.set_title("Project Keeper");
     });
 
     let sw: gtk::ScrolledWindow = builder.get_object("sw").unwrap();
@@ -49,11 +56,15 @@ pub fn build_ui(application: &gtk::Application)
     let model = Rc::new(model::create_model());
     let treeview = gtk::TreeView::with_model(&*model);
     treeview.set_vexpand(true);
-    treeview.set_search_column(columns::Columns::Description as i32);
+    treeview.set_search_column(columns::Columns::Name as i32);
 
     sw.add(&treeview);
 
     columns::add_columns(&model, &treeview);
+
+    open_project.connect_clicked(move |_| {
+        println!("Open...")
+    });
 
     window.show_all();
 }
